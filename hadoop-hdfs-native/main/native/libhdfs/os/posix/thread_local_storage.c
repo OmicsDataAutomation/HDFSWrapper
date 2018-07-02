@@ -46,7 +46,13 @@ static void hdfsThreadDestructor(void *v)
       ret);
     (*env)->ExceptionDescribe(env);
   } else {
-    (*vm)->DetachCurrentThread(vm);
+    // Buggy JVM support, DetachCurrentThread throws exceptions sometimes.
+    // Workaround is to try to AttachCurrentThread as it is a noop if the
+    // Thread is already attached.
+    ret = (*vm)->AttachCurrentThread(vm, (void *)&env, 0);
+    if (ret == JNI_OK) {
+      (*vm)->DetachCurrentThread(vm);
+    }
   }
 }
 
