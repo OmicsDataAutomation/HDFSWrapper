@@ -85,13 +85,6 @@ create_hdfs_objs(hdfs
     ${OS_DIR}/thread_local_storage.c
 )
 
-set(OBJS_DIR ${CMAKE_BINARY_DIR}/hdfs_objs)
+add_library(hdfs STATIC $<TARGET_OBJECTS:hdfs_OBJECTS>)
 
-set(
-    FIND_ARGUMENTS
-    "${CMAKE_BINARY_DIR}/CMakeFiles -name *.c.o -exec cp {} ${OBJS_DIR} \\;"
-)
-
-install(DIRECTORY DESTINATION ${OBJS_DIR}) 
-install(CODE "execute_process(COMMAND find ${FIND_ARGUMENTS})")
-
+install(TARGETS hdfs ARCHIVE DESTINATION lib)
