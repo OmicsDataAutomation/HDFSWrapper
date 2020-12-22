@@ -25,7 +25,7 @@
 # THE SOFTWARE.
 #
 
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
 project(HDFSWrapper)
 
 if(NOT CMAKE_BUILD_TYPE)
